@@ -8,20 +8,20 @@
     - [2.2 PHP 8.1](#22-php-81)
     - [2.3 Apache](#23-apache)
       - [Cài đặt và kiểm tra apache](#cài-đặt-và-kiểm-tra-apache)
-    - [2.3 MySQL 8.0.30](#23-mysql-8030)
+    - [2.4 MySQL 8.0.30](#24-mysql-8030)
       - [Cài đặt MySQL](#cài-đặt-mysql)
       - [Bảo mật MySQL Server](#bảo-mật-mysql-server)
     
   - [3. Cài đặt Composer 2.4.2](#3-cài-đặt-composer-242)
   - [4. Cài đặt NodeJS 18 và npm](#4-cài-đặt-nodejs-18-và-npm)
-  - [5. Cài đặt Git và Ungit (Tùy chọn)](#5-cài-đặt-git-và-ungit-(tùy-chọn))
+  - [5. Cài đặt Git và Ungit(Options)](#5-cài-đặt-git-và-ungit(options))
     - [Cài đặt git](#cài-đặt-git)
-    - [Cài đặt Ungit (Tùy chọn)](#cài-đặ-ungit-(tùy-chọn))
+    - [Cài đặt Ungit(Options)](#cài-đặt-ungit(options))
   - [6. Rainloop + Dovecot + Postfix](#6-rainloop--dovecot--postfix)
-    - [6.1. Postfix](#61-postfix)
-    - [6.2. Dovecot](#62-dovecot)
+    - [6.1. Cài đặt Postfix](#61-cài-đặt-postfix)
+    - [6.2. Cài đặt Dovecot](#62-cài-đặt-dovecot)
     - [6.3. Cài đặt Rainloop](#63-Cài-đặt-rainloop)
-  - [7. Adminer 4.7.6 (Tùy chọn)](#7-adminer-476-(tùy-chọn))
+  - [7. Adminer 4.8.1(Options)](#7-adminer-481(options))
   - [8. phpMyAdmin](#8-phpmyadmin)
   - [9. Samba 4 dùng để share file](#9-samba-4-dùng-để-share-folder)
   - [10. Cài đặt SSL cho domain](#10-cài-đặt-ssl-cho-domain)
@@ -29,22 +29,22 @@
 <!-- /TOC -->
 
 ## 1. Chuẩn bị file vagrant box
-Lưu ý: Để có thể làm theo hướng dẫn cần phải cài đặt `vagrant` và `virtual box`.
-Link tải `(2 phần mềm này để ở mặc định ổ C không đổi.)`:
-Vagrant (https://www.vagrantup.com/downloads).
-Virtual (https://www.virtualbox.org/).
-
-Sau khi cài xong 2 cái trên bắt đầu cài đặt box.
-Vào thư mục vagrant, tạo 1 thư mục con chứa project box.
-VD: `..\Vagrant\project\Ubuntu_22-04`
+Lưu ý: Để có thể làm theo hướng dẫn cần phải cài đặt `vagrant` và `virtual box`.  
+Link tải `(2 phần mềm này để ở mặc định ổ C không đổi.)`:  
+Vagrant (https://www.vagrantup.com/downloads).  
+Virtual (https://www.virtualbox.org/).  
+  
+Sau khi cài xong 2 cái trên bắt đầu cài đặt box.  
+Vào thư mục vagrant, tạo 1 thư mục con chứa project box.  
+VD: `..\Vagrant\project\Ubuntu_22-04`  
 Mở cmd gõ các lệnh sau `(Quyền admin)`
 ```cmd
 $ vagrant init boxen/ubuntu-22.04-x86_64
 $ truncate Vagrantfile -s 0
 ```
 
-Copy nội dung file `Vagrantfile` có `trên git` vào file vừa tạo.
-Có thể tìm hiểu thêm về các thông số `config file Vagrantfile` (https://developer.hashicorp.com/vagrant/docs/vagrantfile).
+Copy nội dung file `Vagrantfile` có `trên git` vào file vừa tạo.  
+Có thể tìm hiểu thêm về các thông số `config file Vagrantfile` (https://developer.hashicorp.com/vagrant/docs/vagrantfile).  
 Lưu ý các mục quan trọng thay đổi để `access ssh`:
 ```Ruby
 config.vm.box = "boxen/ubuntu-22.04-x86_64"
@@ -56,14 +56,14 @@ Sau khi copy nội dung file xong, quay lại cmd gõ lệnh:
 $ vagrant up --provision
 ```
 
-Chờ download box và cài đặt box (https://app.vagrantup.com/boxen/boxes/ubuntu-22.04-x86_64) `(Cài đặt hệ điều hành Ubuntu)`.
+Chờ download box và cài đặt box (https://app.vagrantup.com/boxen/boxes/ubuntu-22.04-x86_64) `(Cài đặt hệ điều hành Ubuntu)`.  
 Lưu ý: Trong quá trình cài đặt nếu hiện `config interface` thì bấm 1 => enter, nếu không có thì bỏ qua:
 ```cmd
 default: Which interface should the network bridge to? 1
 ```
 
-Lệnh ngừng, để kiểm tra box cài được chưa thì mở phần mềm `Virtual box` lên, nếu status hiện `Running` là thành công. 
-Tham khảo 1 số lệnh cơ bản của vagrant (https://www.drupal.org/node/2008794).
+Lệnh ngừng, để kiểm tra box cài được chưa thì mở phần mềm `Virtual box` lên, nếu status hiện `Running` là thành công.  
+Tham khảo 1 số lệnh cơ bản của vagrant (https://www.drupal.org/node/2008794).  
 Sau khi đã cài xong, quay lại cmd `ssh` vào vagrant box:
 ```cmd
 $ vagrant ssh
@@ -134,7 +134,7 @@ Kiểm tra các `extentions` đã cài:
 # php -m
 ```
 
-`(Option)` Lưu ý: Muốn cài php version khác cũng thực hiện như trên, thay đổi `8.1 => ver php muốn cài`.
+`(Options)` Lưu ý: Muốn cài php version khác cũng thực hiện như trên, thay đổi `8.1 => ver php muốn cài`.
 
 ### 2.3 Apache
 #### Cài đặt và kiểm tra apache
@@ -142,7 +142,7 @@ Kiểm tra các `extentions` đã cài:
 # apt install apache2 libapache2-mod-php8.1 -y
 ```
 
-`(Option)` Lưu ý: Nếu có cài ver php khác thì chạy lệnh trên 1 lần, thay đổi `8.1 => ver php đã cài`.
+`(Options)` Lưu ý: Nếu có cài ver php khác thì chạy lệnh trên 1 lần, thay đổi `8.1 => ver php đã cài`.  
 Mở port `80` và `43` bằng UFW firewall:
 ```cmd
 # ufw allow 80/tcp
@@ -169,7 +169,7 @@ Reading history-file /root/.mysql_history
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password by 'Cba@123456';
-mysql> exit
+mysql> exit;
 ```
 #### Bảo mật MySQL Server
 ```cmd
@@ -177,7 +177,7 @@ mysql> exit
 Nhập pass: Cba@123456 cho user root để chạy lệnh tiếp theo
 Lưu ý mấy chỗ : Y hoặc : N, nhập theo ouput ở dưới.
 Output
-```cmd
+
 Securing the MySQL server deployment.
 
 Enter password for user root:
@@ -260,7 +260,7 @@ mysql> exit
 ```cmd
 $ echo '<?php phpinfo(); ?>' > /var/www/html/info.php
 ```
-Kiểm tra thông tin php: Your-IP/info.php
+Kiểm tra thông tin php: `http://your-ip-address/info.php/`
 ## 3. Cài đặt Composer 2.4.2
 ```cmd
 # apt update
@@ -297,14 +297,14 @@ Kiểm tra version:
 # npm -v
 ```
 
-## 5. Cài đặt Git và Ungit (Tùy chọn)
+## 5. Cài đặt Git và Ungit(Options)
 ### Cài đặt git
 ```cmd
 # apt install git
 # git --version
 ```
 
-### Cài đặt Ungit (Tùy chọn)
+### Cài đặt Ungit(Options)
 ```cmd
 # sudo -H npm install -g ungit
 ```
@@ -342,7 +342,7 @@ http://IP:8448/#/repository?path=/root
 # apt-get install postfix-pcre
 ```
 
-Chỉnh sửa file:
+Chỉnh sửa file:  
 Truy cập link sau để xem chi tiết (https://www.server-world.info/en/note?os=Ubuntu_22.04&p=mail&f=1).
 
 ### 6.2. Cài đặt Dovecot
@@ -350,7 +350,7 @@ Truy cập link sau để xem chi tiết (https://www.server-world.info/en/note?
 # apt -y install dovecot-core dovecot-pop3d dovecot-imapd
 ```
 
-Chỉnh sửa file:
+Chỉnh sửa file:  
 Truy cập link sau để xem chi tiết (https://www.server-world.info/en/note?os=Ubuntu_22.04&p=mail&f=2).
 ### 6.3. Cài đặt Rainloop
 ```cmd
@@ -371,7 +371,7 @@ Config với `apache`:
 # vim /etc/apache2/sites-available/rainloop.conf
 ```
 
-Thêm nội dung sau vào file `rainloop.conf`:
+Thêm nội dung sau vào file `rainloop.conf`:  
 Lưu ý: chỉnh sửa `ServerName` theo domain riêng được cấp.
 ```Ruby
 <VirtualHost *:80>
@@ -393,17 +393,17 @@ Lưu ý: chỉnh sửa `ServerName` theo domain riêng được cấp.
 # systemctl reload apache2
 ```
 
-Cấu hình `Rainloop`:
-Truy cập vào domain rainloop `rainloop.terra.vm/rainloop/?admin` và đăng nhập với thông tin `admin|12345`.
-Cấu hình `Domains`:
+Cấu hình `Rainloop`:  
+Truy cập vào domain rainloop `rainloop.terra.vm/rainloop/?admin` và đăng nhập với thông tin `admin|12345`.  
+Cấu hình `Domains`:  
 ![rainloop](/img/2.PNG)
-
-Bấm button test để kiểm tra port:
+  
+Bấm `button test` để kiểm tra port:  
 ![rainloop](/img/admin_rainloop.PNG)
-
-Cấu hình `Login`:
+  
+Cấu hình `Login`:  
 ![rainloop](/img/login_rainloop.PNG)
-
+  
 Cài đặt `mailx`:
 ```cmd
 # sudo apt-get update
@@ -463,7 +463,7 @@ mail -s "This is Subject" -r "sender<sender@mail.com>" someone@example.com
 ```
 Vào `url rainloop` kiểm tra mail.
 
-## 7. Adminer 4.8.1 (Tùy chọn)
+## 7. Adminer 4.8.1(Options)
 ```cmd
 # apt update 
 # apt upgrade
@@ -472,14 +472,14 @@ Vào `url rainloop` kiểm tra mail.
 # systemctl reload apache2
 ```
 
-https://your-server-ip-address/adminer/
+https://your-ip-address/adminer/
 ## 8. phpMyAdmin
 ```cmd
 # apt install phpmyadmin php-mbstring php-zip php-gd php-json php-curl
 ```
 
-Phần select lưu ý bấm thêm `space để có dấu * chọn apache2` => bấm enter.
-Lưu ý Chọn `abort` để hủy không config vì đã setup trên `LAMP`.
+Phần select lưu ý bấm thêm `space để có dấu * chọn apache2` => bấm enter.  
+Lưu ý Chọn `abort` để hủy không config vì đã setup trên `LAMP`.  
 Tiếp tục gõ theo lệnh dưới:
 ```cmd
 # mysql -u root -p
@@ -518,7 +518,7 @@ Khởi động và bật `smbd`, `nmbd`:
 # systemctl start nmbd
 ```
 
-Cài đặt cấu hình chia sẻ mà người khác có thể truy cập vào thư mục:
+Cài đặt cấu hình chia sẻ mà người khác có thể truy cập vào thư mục:  
 Chỉnh sửa file `/etc/samba/smb.conf`:
 ```cmd
 # vim /etc/samba/smb.conf
@@ -543,7 +543,7 @@ Khởi động lại `smbd`:
 # systemctl restart nmbd
 ```
 
-Kiểm tra ngoài thư mục ssh
+Kiểm tra `ngoài thư mục ssh`.
 ## 10. Cài đặt SSL cho domain
 Bật `mode ssl` sau đó khởi động lại `apache2`:
 ```cmd
@@ -557,9 +557,9 @@ Tạo `key ssl`:
 # sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache.key -out /etc/apache2/ssl/apache.crt
 ```
 
-Lưu ý -days 365 có thể đăng ký nhiều hơn
-Sau khi tạo key thì sẽ hiện những thông tin cần nhập, chỉ cần chú ý `"Common Name", nhập Your-IP-Address chỗ này`.
-Tạo file mặc định `config SSL cho Your-IP-Address`:
+Lưu ý -days 365 có thể đăng ký nhiều hơn  
+Sau khi tạo key thì sẽ hiện những thông tin cần nhập, chỉ cần chú ý `"Common Name", nhập your-ip-address chỗ này`.  
+Tạo file mặc định `config SSL cho your-ip-address`:
 ```cmd
 # sudo nano /etc/apache2/sites-available/default.conf
 ```
@@ -568,7 +568,7 @@ Thêm nội dung sau vào file:
 ```Ruby
 <VirtualHost *:443>
         ServerAdmin webmaster@localhost
-        ServerName Your_IP_Address:443
+        ServerName your-ip-address:443
 
         SSLEngine on
         SSLCertificateFile /etc/apache2/ssl/apache.crt
@@ -584,4 +584,4 @@ Những file config 000-default, *.conf sửa *:80 thành *:443, thêm 3 dòng S
 # sudo service apache2 restart
 ```
 
-Check https (https://IP_Address/info.php/).
+Check https `(https://your-ip-address/info.php/)`.
