@@ -133,8 +133,28 @@ Kiểm tra các `extentions` đã cài:
 ```cmd
 # php -m
 ```
-
+Kiểm tra các phiên bản php đã cài:
+```cmd
+# ls -la /var/run/php/
+```
 `(Options)` Lưu ý: Muốn cài php version khác cũng thực hiện như trên, thay đổi `8.1 => ver php muốn cài`.
+`(Options)` Để chạy project có các phiên bản php khác nhau:
+```cmd
+# sudo systemctl start php7.3-fpm
+# sudo systemctl status php7.3-fpm
+=>actve => OK
+# sudo a2enmod actions fcgid alias proxy_fcgi
+# sudo systemctl restart apache2
+# sudo nano /etc/apache2/sites-available/site1.your_domain.conf
+thêm nội dung sau vào
+<FilesMatch \.php$>
+        # From the Apache version 2.4.10 and above, use the SetHandler to run PHP as a fastCGI process server
+         SetHandler "proxy:unix:/run/php/php7.3-fpm.sock|fcgi://localhost"
+</FilesMatch>
+# sudo apachectl configtest
+# sudo a2dissite 000-default.conf
+# sudo systemctl restart apache2
+```
 
 ### 2.3 Apache
 #### Cài đặt và kiểm tra apache
